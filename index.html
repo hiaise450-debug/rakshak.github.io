@@ -1,0 +1,2030 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>RAKSHAK</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-color: #d63384;
+            --secondary-color: #6f42c1;
+            --danger-color: #dc3545;
+            --success-color: #198754;
+            --warning-color: #ffc107;
+            --light-color: #f8f9fa;
+            --dark-color: #212529;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+            overflow-x: hidden;
+            -webkit-tap-highlight-color: transparent;
+            -webkit-text-size-adjust: 100%;
+        }
+        
+        .app-container {
+            max-width: 100%;
+            margin: 0 auto;
+            background-color: white;
+            min-height: 100vh;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        /* Common Styles */
+        .btn-custom {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            padding: 12px 25px;
+            font-weight: 500;
+            transition: all 0.3s;
+            font-size: 16px;
+        }
+        
+        .btn-custom:hover {
+            background-color: #c22575;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+        }
+        
+        .btn-sos {
+            background-color: var(--danger-color);
+            color: white;
+            font-size: 1.5rem;
+            font-weight: 700;
+            padding: 15px 30px;
+            border-radius: 50px;
+            border: none;
+            box-shadow: 0 0 20px rgba(220, 53, 69, 0.5);
+            transition: all 0.3s;
+        }
+        
+        .btn-sos:hover, .btn-sos:active {
+            background-color: #c82333;
+            transform: scale(1.05);
+            box-shadow: 0 0 25px rgba(220, 53, 69, 0.7);
+        }
+        
+        .card-custom {
+            border-radius: 15px;
+            border: none;
+            box-shadow: var(--shadow);
+            margin-bottom: 15px;
+            overflow: hidden;
+        }
+        
+        .navbar-custom {
+            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+            color: white;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            padding: 12px 15px;
+        }
+        
+        .page-title {
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            position: relative;
+            padding-bottom: 8px;
+            font-size: 1.5rem;
+        }
+        
+        .page-title:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+            border-radius: 2px;
+        }
+        
+        /* Splash Screen */
+        .splash-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease;
+            padding: 20px;
+        }
+        
+        .splash-screen.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+        
+        .app-logo {
+            width: 120px;
+            height: 120px;
+            background: white;
+            border-radius: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+        }
+        
+        .app-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 20px;
+        }
+        
+        .app-name {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: white;
+            text-align: center;
+            margin-bottom: 8px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .app-tagline {
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.9);
+            text-align: center;
+            max-width: 90%;
+            margin-bottom: 5px;
+            line-height: 1.4;
+        }
+        
+        /* Start Button */
+        .start-btn {
+            background: linear-gradient(135deg, #ff8a00, #da1b60);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            padding: 16px 40px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-top: 30px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            position: relative;
+            overflow: hidden;
+            width: 80%;
+            max-width: 300px;
+        }
+        
+        .start-btn:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.4);
+            background: linear-gradient(135deg, #ff9500, #e91e63);
+        }
+        
+        /* Screen Container */
+        .screen {
+            padding: 15px;
+            display: none;
+            min-height: calc(100vh - 120px);
+            padding-bottom: 80px;
+        }
+        
+        .screen.active {
+            display: block;
+        }
+        
+        /* Login & Signup Screens */
+        .auth-form {
+            max-width: 100%;
+            margin: 0 auto;
+        }
+        
+        .form-control-custom {
+            border-radius: 10px;
+            padding: 14px 15px;
+            border: 1px solid #ddd;
+            margin-bottom: 15px;
+            transition: all 0.3s;
+            font-size: 16px;
+        }
+        
+        .form-control-custom:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 0.25rem rgba(214, 51, 132, 0.25);
+        }
+        
+        /* Home Screen */
+        .welcome-banner {
+            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+            color: white;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: var(--shadow);
+        }
+        
+        .emergency-services {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+        
+        .service-btn {
+            background-color: white;
+            border-radius: 12px;
+            padding: 15px 5px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            transition: all 0.3s;
+            border: 2px solid transparent;
+            cursor: pointer;
+            min-height: 120px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .service-btn:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary-color);
+        }
+        
+        .service-icon {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+        
+        .service-btn.police .service-icon {
+            color: #0d6efd;
+        }
+        
+        .service-btn.ambulance .service-icon {
+            color: var(--danger-color);
+        }
+        
+        .service-btn.fire .service-icon {
+            color: #fd7e14;
+        }
+        
+        .feature-card {
+            padding: 15px;
+            border-radius: 15px;
+            background-color: white;
+            box-shadow: var(--shadow);
+            margin-bottom: 12px;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        /* SOS Screen */
+        .sos-screen {
+            background-color: #f8d7da;
+            min-height: calc(100vh - 120px);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .sos-circle {
+            width: 220px;
+            height: 220px;
+            border-radius: 50%;
+            background-color: var(--danger-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 25px 0;
+            box-shadow: 0 0 50px rgba(220, 53, 69, 0.7);
+            animation: pulse 2s infinite;
+            cursor: pointer;
+        }
+        
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(220, 53, 69, 0.7);
+            }
+            70% {
+                box-shadow: 0 0 0 30px rgba(220, 53, 69, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(220, 53, 69, 0);
+            }
+        }
+        
+        .sos-text {
+            font-size: 3.5rem;
+            font-weight: 900;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        /* Location Screen */
+        .map-container {
+            height: 250px;
+            width: 100%;
+            background-color: #e9ecef;
+            border-radius: 15px;
+            margin-bottom: 15px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .map-iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: 15px;
+        }
+        
+        .location-sharing {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: white;
+            padding: 15px;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            margin-bottom: 15px;
+        }
+        
+        /* AI Screen */
+        .ai-screen-content {
+            text-align: center;
+            padding: 20px;
+        }
+        
+        .ai-icon-container {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        .ai-icon {
+            font-size: 50px;
+            color: white;
+        }
+        
+        /* Contacts Screen */
+        .contact-item {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            background-color: white;
+            border-radius: 12px;
+            margin-bottom: 10px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s;
+        }
+        
+        .contact-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        .contact-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: var(--primary-color);
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.3rem;
+            margin-right: 15px;
+        }
+        
+        /* Profile Screen */
+        .profile-header {
+            text-align: center;
+            padding: 30px 20px;
+            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+            color: white;
+            border-radius: 0 0 30px 30px;
+            margin-bottom: 25px;
+        }
+        
+        /* Removed .profile-avatar CSS as requested */
+        
+        .profile-menu-item {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            background-color: white;
+            border-radius: 12px;
+            margin-bottom: 10px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+        
+        .profile-menu-item:hover {
+            background-color: #f8f9fa;
+            transform: translateX(5px);
+        }
+        
+        .menu-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: rgba(214, 51, 132, 0.1);
+            color: var(--primary-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 15px;
+        }
+        
+        /* Bottom Navigation */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background-color: white;
+            box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.1);
+            z-index: 100;
+            display: flex;
+            justify-content: space-around;
+            padding: 10px 0;
+            border-top-left-radius: 20px;
+            border-top-right-radius: 20px;
+            left: 0;
+            right: 0;
+            margin: 0 auto;
+        }
+        
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: #6c757d;
+            text-decoration: none;
+            font-size: 0.75rem;
+            transition: all 0.3s;
+            padding: 5px 8px;
+            border-radius: 10px;
+            cursor: pointer;
+            flex: 1;
+            max-width: 80px;
+        }
+        
+        .nav-item.active {
+            color: var(--primary-color);
+            background-color: rgba(214, 51, 132, 0.1);
+        }
+        
+        .nav-item i {
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+        }
+        
+        .nav-item.sos-nav {
+            position: relative;
+            top: -15px;
+            background-color: var(--danger-color);
+            color: white;
+            padding: 12px;
+            border-radius: 50%;
+            width: 55px;
+            height: 55px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 4px 12px rgba(220, 53, 69, 0.4);
+            flex: 0 0 auto;
+        }
+        
+        .nav-item.sos-nav i {
+            font-size: 1.3rem;
+            margin-bottom: 0;
+        }
+        
+        /* SOS Options Modal */
+        .sos-options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 20px;
+            width: 100%;
+            max-width: 320px;
+        }
+        
+        .sos-option-btn {
+            padding: 12px;
+            border-radius: 10px;
+            border: none;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: all 0.3s;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        
+        .sos-option-btn.sms {
+            background-color: #28a745;
+            color: white;
+        }
+        
+        .sos-option-btn.whatsapp {
+            background-color: #25D366;
+            color: white;
+        }
+        
+        .sos-option-btn.cancel {
+            background-color: #6c757d;
+            color: white;
+        }
+        
+        .sos-option-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* Modal Styles */
+        .custom-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+            padding: 20px;
+        }
+        
+        .modal-content-custom {
+            background: white;
+            border-radius: 0; /* Changed from 20px to 0 for square shape */
+            padding: 20px;
+            width: 100%;
+            max-width: 350px;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            animation: modalAppear 0.3s ease;
+        }
+        
+        @keyframes modalAppear {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Utility Classes */
+        .text-gradient {
+            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .hidden {
+            display: none !important;
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 480px) {
+            .app-name {
+                font-size: 2rem;
+            }
+            
+            .sos-circle {
+                width: 200px;
+                height: 200px;
+            }
+            
+            .sos-text {
+                font-size: 3rem;
+            }
+            
+            .service-btn {
+                min-height: 110px;
+            }
+            
+            .service-icon {
+                font-size: 1.8rem;
+            }
+        }
+        
+        @media (max-width: 360px) {
+            .app-name {
+                font-size: 1.8rem;
+            }
+            
+            .sos-circle {
+                width: 180px;
+                height: 180px;
+            }
+            
+            .sos-text {
+                font-size: 2.5rem;
+            }
+            
+            .emergency-services {
+                gap: 8px;
+            }
+            
+            .service-btn {
+                min-height: 100px;
+                padding: 10px 3px;
+            }
+            
+            .service-icon {
+                font-size: 1.6rem;
+                margin-bottom: 8px;
+            }
+        }
+        
+        /* Fix for mobile input zoom */
+        @media screen and (max-width: 480px) {
+            input, select, textarea {
+                font-size: 16px !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Splash Screen -->
+    <div class="splash-screen" id="splashScreen">
+        <div class="app-logo">
+            <img src="WhatsApp Image 2025-12-25 at 9,02,41 PM (1)-Picsart-AiImageEnhancer.png" alt="RAKSHAK Logo">
+        </div>
+        <h1 class="app-name">RAKSHAK</h1>
+        <p class="app-tagline">HARSH VARDHAN SINGH</p>
+        <button class="start-btn" id="startButton">
+            GET STARTED
+        </button>
+    </div>
+    
+    <!-- Main App Container -->
+    <div class="app-container">
+        <!-- Top Navigation Bar -->
+        <nav class="navbar navbar-custom">
+            <div class="container-fluid d-flex justify-content-end">
+                <div class="d-flex align-items-center">
+                    <button class="btn btn-light btn-sm me-2" id="profileBtn">
+                        <i class="fas fa-user"></i>
+                    </button>
+                    <button class="btn btn-light btn-sm" id="logoutBtn">
+                        <i class="fas fa-sign-out-alt"></i>
+                    </button>
+                </div>
+            </div>
+        </nav>
+        
+        <!-- Login Screen -->
+        <div class="screen" id="loginScreen">
+            <div class="text-center mb-5">
+                <h2 class="page-title">Welcome Back</h2>
+                <p class="text-muted">Sign in to continue to your safety app</p>
+            </div>
+            
+            <div class="auth-form">
+                <div class="mb-3">
+                    <input type="email" class="form-control form-control-custom" id="loginEmail" placeholder="Email Address" value="demo@example.com">
+                </div>
+                <div class="mb-3">
+                    <input type="password" class="form-control form-control-custom" id="loginPassword" placeholder="Password" value="123456">
+                </div>
+                <div class="mb-3 form-check">
+                    <input type="checkbox" class="form-check-input" id="rememberMe">
+                    <label class="form-check-label" for="rememberMe">Remember me</label>
+                </div>
+                <button class="btn btn-custom w-100 mb-3" id="loginBtn">Sign In</button>
+                
+                <div class="divider">
+                    <span>Or continue with</span>
+                </div>
+                
+                <button class="btn btn-outline-primary w-100 mb-3" id="googleLoginBtn">
+                    <i class="fab fa-google me-2"></i> Google
+                </button>
+                
+                <div class="text-center mt-4">
+                    <p>Don't have an account? <a href="#" class="text-primary" id="goToSignup">Sign Up</a></p>
+                </div>
+            </div>
+            
+            <div class="mt-5 text-center">
+                <p class="text-muted small">By continuing, you agree to our Terms of Service and Privacy Policy</p>
+            </div>
+        </div>
+        
+        <!-- Signup Screen -->
+        <div class="screen" id="signupScreen">
+            <div class="text-center mb-5">
+                <h2 class="page-title">Create Account</h2>
+                <p class="text-muted">Sign up for your safety app</p>
+            </div>
+            
+            <div class="auth-form">
+                <div class="mb-3">
+                    <input type="text" class="form-control form-control-custom" id="signupName" placeholder="Full Name">
+                </div>
+                <div class="mb-3">
+                    <input type="email" class="form-control form-control-custom" id="signupEmail" placeholder="Email Address">
+                </div>
+                <div class="mb-3">
+                    <input type="password" class="form-control form-control-custom" id="signupPassword" placeholder="Password">
+                </div>
+                <div class="mb-3">
+                    <input type="password" class="form-control form-control-custom" id="signupConfirmPassword" placeholder="Confirm Password">
+                </div>
+                <button class="btn btn-custom w-100 mb-3" id="signupBtn">Create Account</button>
+                
+                <div class="text-center mt-4">
+                    <p>Already have an account? <a href="#" class="text-primary" id="goToLogin">Sign In</a></p>
+                </div>
+            </div>
+            
+            <div class="mt-5 text-center">
+                <p class="text-muted small">By creating an account, you agree to our Terms of Service and Privacy Policy</p>
+            </div>
+        </div>
+        
+        <!-- Home Screen -->
+        <div class="screen active" id="homeScreen">
+            <div class="welcome-banner">
+                <h4>Hello, <span id="userName">Guest User</span>!</h4>
+                <p class="mb-0">We admire you are strong</p>
+            </div>
+            
+            <h5 class="mb-3">Emergency Services</h5>
+            <div class="emergency-services">
+                <div class="service-btn police" id="callPolice">
+                    <div class="service-icon">
+                        <i class="fas fa-balance-scale"></i>
+                    </div>
+                    <h6>Police</h6>
+                    <p class="mb-0">112/100</p>
+                </div>
+                <div class="service-btn ambulance" id="callAmbulance">
+                    <div class="service-icon">
+                        <i class="fas fa-ambulance"></i>
+                    </div>
+                    <h6>Ambulance</h6>
+                    <p class="mb-0">108/102</p>
+                </div>
+                <div class="service-btn fire" id="callFire">
+                    <div class="service-icon">
+                        <i class="fas fa-fire-extinguisher"></i>
+                    </div>
+                    <h6>Fire Brigade</h6>
+                    <p class="mb-0">101</p>
+                </div>
+            </div>
+            
+            <h5 class="mb-3">Safety Features</h5>
+            
+            <div class="feature-card" id="shareLocationCard">
+                <div class="d-flex align-items-center">
+                    <div class="me-3">
+                        <div class="menu-icon">
+                            <i class="fas fa-location-arrow"></i>
+                        </div>
+                    </div>
+                    <div class="flex-grow-1">
+                        <h6>Share Live Location</h6>
+                        <p class="mb-0 text-muted small">Share your location with emergency contacts</p>
+                    </div>
+                    <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" id="locationSwitch">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="feature-card" id="trackMeCard">
+                <div class="d-flex align-items-center">
+                    <div class="me-3">
+                        <div class="menu-icon">
+                            <i class="fas fa-map-marked-alt"></i>
+                        </div>
+                    </div>
+                    <div class="flex-grow-1">
+                        <h6>Track Me</h6>
+                        <p class="mb-0 text-muted small">View your current location on map</p>
+                    </div>
+                    <div>
+                        <i class="fas fa-chevron-right text-muted"></i>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="feature-card" id="safetyTipsCard">
+                <div class="d-flex align-items-center">
+                    <div class="me-3">
+                        <div class="menu-icon">
+                            <i class="fas fa-lightbulb"></i>
+                        </div>
+                    </div>
+                    <div class="flex-grow-1">
+                        <h6>Safety Tips</h6>
+                        <p class="mb-0 text-muted small">Important safety guidelines</p>
+                    </div>
+                    <div>
+                        <i class="fas fa-chevron-right text-muted"></i>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="feature-card" id="geminiAICard">
+                <div class="d-flex align-items-center">
+                    <div class="me-3">
+                        <div class="menu-icon">
+                            <i class="fas fa-robot"></i>
+                        </div>
+                    </div>
+                    <div class="flex-grow-1">
+                        <h6>Gemini AI Assistant</h6>
+                        <p class="mb-0 text-muted small">Get advice from Google Gemini</p>
+                    </div>
+                    <div>
+                        <i class="fas fa-chevron-right text-muted"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- SOS Screen -->
+        <div class="screen" id="sosScreen">
+            <div class="sos-screen">
+                <h2 class="text-center mb-4 text-danger fw-bold">EMERGENCY SOS</h2>
+                <p class="text-center text-danger mb-4">Tap the button to activate SOS</p>
+                
+                <div class="sos-circle" id="sosButton">
+                    <div class="sos-text">SOS</div>
+                </div>
+                
+                <div class="sos-options">
+                    <button class="sos-option-btn sms" id="sendSMSBtn">
+                        <i class="fas fa-comment-sms"></i> Send Emergency SMS
+                    </button>
+                    <button class="sos-option-btn whatsapp" id="sendWhatsAppBtn">
+                        <i class="fab fa-whatsapp"></i> Send WhatsApp Alert
+                    </button>
+                    <button class="sos-option-btn cancel" id="cancelSOSBtn">
+                        <i class="fas fa-times"></i> Cancel SOS
+                    </button>
+                </div>
+                
+            </div>
+        </div>
+        
+        <!-- Location Screen -->
+        <div class="screen" id="locationScreen">
+            <h4 class="page-title">Track Me</h4>
+            
+            <div class="map-container">
+                <iframe 
+                    id="googleMap"
+                    class="map-iframe"
+                    src="https://www.google.com/maps/embed/v1/view?key=YOUR_API_KEY&zoom=15&center=27.1767,78.0081"
+                    allowfullscreen>
+                </iframe>
+            </div>
+            
+            <button class="btn btn-custom w-100 mb-3" id="openLiveLocation">
+                <i class="fas fa-map-marker-alt me-2"></i>Live Location in Google Maps
+            </button>
+            
+            <div class="location-sharing">
+                <div>
+                    <h6 class="mb-1">Share Live Location</h6>
+                    <p class="small text-muted mb-0">Share location with contacts</p>
+                </div>
+                <div class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" id="locationShareSwitch">
+                </div>
+            </div>
+            
+            <h6 class="mb-3">Emergency Contacts</h6>
+            <div id="locationContacts">
+                <!-- Contacts will be dynamically added here -->
+            </div>
+        </div>
+        
+        <!-- AI Assistant Screen -->
+        <div class="screen" id="aiScreen">
+            <div class="ai-screen-content">
+                <h4 class="page-title">Gemini AI Assistant</h4>
+                <p class="text-muted mb-4">Get advice from Google's AI</p>
+                
+                <div class="ai-icon-container">
+                    <i class="fas fa-robot ai-icon"></i>
+                </div>
+                
+                <h5 class="mb-3">Powered by Google Gemini</h5>
+                <p class="text-muted mb-4">Click the button below to open Gemini AI for instant safety advice, emergency procedures, and guidance.</p>
+                
+                <button class="btn btn-custom btn-lg mb-4" id="openGeminiBtn">
+                    <i class="fab fa-google me-2"></i> Open Gemini AI
+                </button>
+                
+                <div class="card-custom p-4 mt-4">
+                    <h6 class="text-center mb-3">Your AI Safety Assistant is Ready</h6>
+                    <p class="text-center text-muted small mb-0">Gemini AI provides real-time safety advice, emergency guidance, and personalized support when you need.</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Contacts Screen -->
+        <div class="screen" id="contactsScreen">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h4 class="page-title mb-0">Emergency Contacts</h4>
+                <button class="btn btn-custom btn-sm" id="addContactBtn">
+                    <i class="fas fa-plus me-1"></i> Add
+                </button>
+            </div>
+            
+            <div id="contactsList">
+                <!-- Contacts will be dynamically added here -->
+            </div>
+            
+            <div class="alert alert-info mt-4">
+                <h6><i class="fas fa-info-circle me-2"></i>Important:</h6>
+                <p class="mb-0 small">These contacts will receive your location and emergency alerts when SOS is activated.</p>
+            </div>
+        </div>
+        
+        <!-- Profile Screen -->
+        <div class="screen" id="profileScreen">
+            <div class="profile-header">
+                <!-- Removed the profile-avatar div as requested -->
+                <h4 id="profileUserName">Guest User</h4>
+                <p id="profileUserEmail">user@example.com</p>
+            </div>
+            
+            <div class="px-3">
+                <h6 class="mb-3">Account Settings</h6>
+                
+                <div class="profile-menu-item" id="editProfileBtn">
+                    <div class="menu-icon">
+                        <i class="fas fa-user-edit"></i>
+                    </div>
+                    <div class="flex-grow-1">
+                        <h6 class="mb-0">Edit Profile</h6>
+                        <p class="small text-muted mb-0">Edit your information</p>
+                    </div>
+                    <div>
+                        <i class="fas fa-chevron-right text-muted"></i>
+                    </div>
+                </div>
+                
+                <div class="profile-menu-item" id="appInfoBtn">
+                    <div class="menu-icon">
+                        <i class="fas fa-info-circle"></i>
+                    </div>
+                    <div class="flex-grow-1">
+                        <h6 class="mb-0">App Information</h6>
+                        <p class="small text-muted mb-0">Version, developer details</p>
+                    </div>
+                    <div>
+                        <i class="fas fa-chevron-right text-muted"></i>
+                    </div>
+                </div>
+                
+                <div class="profile-menu-item" id="safetyTipsBtn">
+                    <div class="menu-icon">
+                        <i class="fas fa-lightbulb"></i>
+                    </div>
+                    <div class="flex-grow-1">
+                        <h6 class="mb-0">Safety Tips</h6>
+                        <p class="small text-muted mb-0">Important safety guidelines</p>
+                    </div>
+                    <div>
+                        <i class="fas fa-chevron-right text-muted"></i>
+                    </div>
+                </div>
+                
+                <div class="profile-menu-item" id="shareAppBtn">
+                    <div class="menu-icon">
+                        <i class="fas fa-share-alt"></i>
+                    </div>
+                    <div class="flex-grow-1">
+                        <h6 class="mb-0">Share App</h6>
+                        <p class="small text-muted mb-0">Share with friends and family</p>
+                    </div>
+                    <div>
+                        <i class="fas fa-chevron-right text-muted"></i>
+                    </div>
+                </div>
+                
+                <div class="profile-menu-item" id="logoutProfileBtn">
+                    <div class="menu-icon">
+                        <i class="fas fa-sign-out-alt"></i>
+                    </div>
+                    <div class="flex-grow-1">
+                        <h6 class="mb-0">Logout</h6>
+                        <p class="small text-muted mb-0">Sign out from your account</p>
+                    </div>
+                    <div>
+                        <i class="fas fa-chevron-right text-muted"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Bottom Navigation -->
+        <div class="bottom-nav">
+            <a href="#" class="nav-item active" data-screen="home">
+                <i class="fas fa-home"></i>
+                <span>Home</span>
+            </a>
+            <a href="#" class="nav-item" data-screen="location">
+                <i class="fas fa-map-marker-alt"></i>
+                <span>Location</span>
+            </a>
+            <a href="#" class="nav-item sos-nav" data-screen="sos">
+                <i class="fas fa-bell"></i>
+                <span>SOS</span>
+            </a>
+            <a href="#" class="nav-item" data-screen="ai">
+                <i class="fas fa-robot"></i>
+                <span>AI</span>
+            </a>
+            <a href="#" class="nav-item" data-screen="contacts">
+                <i class="fas fa-address-book"></i>
+                <span>Contacts</span>
+            </a>
+        </div>
+    </div>
+    
+    <!-- Custom Modal -->
+    <div id="customModal" class="custom-modal hidden">
+        <div class="modal-content-custom" id="modalContent">
+            <!-- Modal content will be inserted here -->
+        </div>
+    </div>
+    
+    <!-- JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // DOM Elements
+            const splashScreen = document.getElementById('splashScreen');
+            const loginScreen = document.getElementById('loginScreen');
+            const signupScreen = document.getElementById('signupScreen');
+            const homeScreen = document.getElementById('homeScreen');
+            const sosScreen = document.getElementById('sosScreen');
+            const locationScreen = document.getElementById('locationScreen');
+            const aiScreen = document.getElementById('aiScreen');
+            const contactsScreen = document.getElementById('contactsScreen');
+            const profileScreen = document.getElementById('profileScreen');
+            const customModal = document.getElementById('customModal');
+            const modalContent = document.getElementById('modalContent');
+            const startButton = document.getElementById('startButton');
+            
+            const screens = {
+                login: loginScreen,
+                signup: signupScreen,
+                home: homeScreen,
+                sos: sosScreen,
+                location: locationScreen,
+                ai: aiScreen,
+                contacts: contactsScreen,
+                profile: profileScreen
+            };
+            
+            // User data
+            let currentUser = {
+                name: "Guest User",
+                email: "guest@example.com"
+            };
+            
+            // Emergency contacts data (loaded from localStorage)
+            let emergencyContacts = JSON.parse(localStorage.getItem('rakshakContacts')) || [
+                { id: 1, name: "HARSH", relation: "MYSELF", number: "8433498646", avatar: "H" },
+                { id: 2, name: "YASH", relation: "FAMILY", number: "9411652098", avatar: "Y" },
+            ];
+            
+            // Speech synthesis for SOS
+            let speechSynthesis = window.speechSynthesis;
+            let isSpeaking = false;
+            let currentLocation = null;
+            
+            // Save contacts to localStorage
+            function saveContacts() {
+                localStorage.setItem('rakshakContacts', JSON.stringify(emergencyContacts));
+            }
+            
+            // Initialize the app
+            function initApp() {
+                // Start button functionality
+                startButton.addEventListener('click', function() {
+                    splashScreen.classList.add('hidden');
+                    
+                    // Check if user is already logged in
+                    const isLoggedIn = localStorage.getItem('rakshakLoggedIn');
+                    const savedUser = localStorage.getItem('rakshakUser');
+                    
+                    if (isLoggedIn === 'true' && savedUser) {
+                        currentUser = JSON.parse(savedUser);
+                        showScreen('home');
+                        updateUserName();
+                    } else {
+                        showScreen('login');
+                    }
+                });
+                
+                // Set up event listeners
+                setupEventListeners();
+                
+                // Render initial contacts
+                renderContacts();
+                renderLocationContacts();
+            }
+            
+            // Set up all event listeners
+            function setupEventListeners() {
+                // Navigation buttons
+                document.querySelectorAll('.nav-item').forEach(item => {
+                    item.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        const screen = this.getAttribute('data-screen');
+                        
+                        // Update active nav item
+                        document.querySelectorAll('.nav-item').forEach(nav => nav.classList.remove('active'));
+                        this.classList.add('active');
+                        
+                        // Show the selected screen
+                        showScreen(screen);
+                    });
+                });
+                
+                // Auth navigation
+                document.getElementById('goToSignup').addEventListener('click', function(e) {
+                    e.preventDefault();
+                    showScreen('signup');
+                });
+                
+                document.getElementById('goToLogin').addEventListener('click', function(e) {
+                    e.preventDefault();
+                    showScreen('login');
+                });
+                
+                // Login button
+                document.getElementById('loginBtn').addEventListener('click', function() {
+                    const email = document.getElementById('loginEmail').value;
+                    const password = document.getElementById('loginPassword').value;
+                    
+                    if (email && password) {
+                        // For demo, just log in with any credentials
+                        localStorage.setItem('rakshakLoggedIn', 'true');
+                        
+                        // Update user info
+                        if (email) {
+                            currentUser.email = email;
+                            const nameFromEmail = email.split('@')[0];
+                            currentUser.name = nameFromEmail.charAt(0).toUpperCase() + nameFromEmail.slice(1);
+                            localStorage.setItem('rakshakUser', JSON.stringify(currentUser));
+                        }
+                        
+                        updateUserName();
+                        showScreen('home');
+                        
+                        // Show success message
+                        showAlert('Login successful!', 'success');
+                    } else {
+                        showAlert('Please enter email and password', 'danger');
+                    }
+                });
+                
+                // Google login
+                document.getElementById('googleLoginBtn').addEventListener('click', function() {
+                    // For demo, just log in
+                    localStorage.setItem('rakshakLoggedIn', 'true');
+                    localStorage.setItem('rakshakUser', JSON.stringify(currentUser));
+                    updateUserName();
+                    showScreen('home');
+                    showAlert('Login successful!', 'success');
+                });
+                
+                // Signup button
+                document.getElementById('signupBtn').addEventListener('click', function() {
+                    const name = document.getElementById('signupName').value;
+                    const email = document.getElementById('signupEmail').value;
+                    const password = document.getElementById('signupPassword').value;
+                    const confirmPassword = document.getElementById('signupConfirmPassword').value;
+                    
+                    if (name && email && password && confirmPassword) {
+                        if (password !== confirmPassword) {
+                            showAlert('Passwords do not match', 'danger');
+                            return;
+                        }
+                        
+                        if (password.length < 6) {
+                            showAlert('Password must be at least 6 characters', 'danger');
+                            return;
+                        }
+                        
+                        // For demo, just sign up
+                        localStorage.setItem('rakshakLoggedIn', 'true');
+                        
+                        // Update user info
+                        currentUser.name = name;
+                        currentUser.email = email;
+                        localStorage.setItem('rakshakUser', JSON.stringify(currentUser));
+                        
+                        updateUserName();
+                        showScreen('home');
+                        
+                        // Show success message
+                        showAlert('Account created successfully!', 'success');
+                    } else {
+                        showAlert('Please fill all fields', 'danger');
+                    }
+                });
+                
+                // Profile button in navbar
+                document.getElementById('profileBtn').addEventListener('click', function() {
+                    showScreen('profile');
+                });
+                
+                // Logout buttons
+                document.getElementById('logoutBtn').addEventListener('click', logout);
+                document.getElementById('logoutProfileBtn').addEventListener('click', logout);
+                
+                // SOS button
+                document.getElementById('sosButton').addEventListener('click', function() {
+                    showSOSOptions();
+                });
+                
+                document.getElementById('sendSMSBtn').addEventListener('click', sendSMSAlerts);
+                document.getElementById('sendWhatsAppBtn').addEventListener('click', sendWhatsAppAlerts);
+                document.getElementById('cancelSOSBtn').addEventListener('click', function() {
+                    // Stop any ongoing speech
+                    if (speechSynthesis.speaking) {
+                        speechSynthesis.cancel();
+                    }
+                    showScreen('home');
+                    document.querySelector('.nav-item[data-screen="home"]').click();
+                });
+                
+                // Emergency calls
+                document.getElementById('callPolice').addEventListener('click', function() {
+                    if (confirm('Call Police Emergency (112)? This will immediately dial the police.')) {
+                        window.location.href = 'tel:112';
+                    }
+                });
+                
+                document.getElementById('callAmbulance').addEventListener('click', function() {
+                    if (confirm('Call Ambulance Emergency (108)? This will immediately dial ambulance services.')) {
+                        window.location.href = 'tel:108';
+                    }
+                });
+                
+                document.getElementById('callFire').addEventListener('click', function() {
+                    if (confirm('Call Fire Brigade Emergency (101)? This will immediately dial fire services.')) {
+                        window.location.href = 'tel:101';
+                    }
+                });
+                
+                // Feature cards
+                document.getElementById('trackMeCard').addEventListener('click', function() {
+                    showScreen('location');
+                    document.querySelector('.nav-item[data-screen="location"]').click();
+                    updateLocationMap();
+                });
+                
+                document.getElementById('geminiAICard').addEventListener('click', function() {
+                    showScreen('ai');
+                    document.querySelector('.nav-item[data-screen="ai"]').click();
+                });
+                
+                document.getElementById('safetyTipsCard').addEventListener('click', function() {
+                    showSafetyTips();
+                });
+                
+                // Open Live Location in Google Maps
+                document.getElementById('openLiveLocation').addEventListener('click', function() {
+                    if (navigator.geolocation) {
+                        navigator.geolocation.getCurrentPosition(function(position) {
+                            const lat = position.coords.latitude;
+                            const lng = position.coords.longitude;
+                            const googleMapsUrl = `https://www.google.com/maps?q=${lat},${lng}`;
+                            window.open(googleMapsUrl, '_blank');
+                        }, function() {
+                            // Default location if permission denied
+                            const googleMapsUrl = 'https://www.google.com/maps/@27.1767,78.0081,15z';
+                            window.open(googleMapsUrl, '_blank');
+                        });
+                    } else {
+                        showAlert('Geolocation not supported', 'danger');
+                    }
+                });
+                
+                // Gemini AI button - FIXED to work on mobile
+                document.getElementById('openGeminiBtn').addEventListener('click', function() {
+                    // Direct link to Gemini app or website
+                    const geminiUrl = 'https://gemini.google.com';
+                    
+                    // Try to open in app if available, otherwise open in browser
+                    const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+                    
+                    // Check if on mobile
+                    if (/android/i.test(userAgent)) {
+                        // Try to open Gemini Android app
+                        window.location.href = 'intent://gemini.google.com/#Intent;scheme=https;package=com.google.android.apps.searchlite;S.browser_fallback_url=https://gemini.google.com;end';
+                    } else if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
+                        // Try to open Gemini iOS app
+                        window.location.href = 'googleapp://gemini.google.com';
+                        // Fallback to website
+                        setTimeout(function() {
+                            window.open('https://gemini.google.com', '_blank');
+                        }, 500);
+                    } else {
+                        // Desktop - open in new tab
+                        window.open(geminiUrl, '_blank');
+                    }
+                });
+                
+                // Location sharing switch
+                document.getElementById('locationSwitch').addEventListener('change', function() {
+                    if (this.checked) {
+                        startLocationSharing();
+                        showAlert('Location sharing enabled', 'success');
+                    } else {
+                        stopLocationSharing();
+                        showAlert('Location sharing disabled', 'warning');
+                    }
+                });
+                
+                // Location share switch on location screen
+                document.getElementById('locationShareSwitch').addEventListener('change', function() {
+                    if (this.checked) {
+                        startLocationSharing();
+                        showAlert('Live location sharing enabled', 'success');
+                    } else {
+                        stopLocationSharing();
+                        showAlert('Live location sharing disabled', 'warning');
+                    }
+                });
+                
+                // Add contact button
+                document.getElementById('addContactBtn').addEventListener('click', addNewContact);
+                
+                // Profile menu items
+                document.getElementById('editProfileBtn').addEventListener('click', function() {
+                    editProfile();
+                });
+                
+                document.getElementById('appInfoBtn').addEventListener('click', showAppInfo);
+                document.getElementById('safetyTipsBtn').addEventListener('click', showSafetyTips);
+                document.getElementById('shareAppBtn').addEventListener('click', shareApp);
+                
+                // Shake detection for SOS
+                let shakeThreshold = 15;
+                let lastAcceleration = { x: null, y: null, z: null };
+                let lastShakeTime = 0;
+                const SHAKE_COOLDOWN = 3000; // 3 seconds cooldown
+                
+                if (window.DeviceMotionEvent) {
+                    window.addEventListener('devicemotion', function(e) {
+                        let acceleration = e.accelerationIncludingGravity;
+                        
+                        if (!lastAcceleration.x) {
+                            lastAcceleration = {
+                                x: acceleration.x,
+                                y: acceleration.y,
+                                z: acceleration.z
+                            };
+                            return;
+                        }
+                        
+                        let delta = {
+                            x: Math.abs(acceleration.x - lastAcceleration.x),
+                            y: Math.abs(acceleration.y - lastAcceleration.y),
+                            z: Math.abs(acceleration.z - lastAcceleration.z)
+                        };
+                        
+                        if ((delta.x > shakeThreshold || delta.y > shakeThreshold || delta.z > shakeThreshold) && 
+                            Date.now() - lastShakeTime > SHAKE_COOLDOWN) {
+                            // Device was shaken
+                            lastShakeTime = Date.now();
+                            showAlert('Shake detected! Activating SOS...', 'warning');
+                            showSOSOptions();
+                        }
+                        
+                        lastAcceleration = {
+                            x: acceleration.x,
+                            y: acceleration.y,
+                            z: acceleration.z
+                        };
+                    });
+                }
+                
+                // Close modal when clicking outside
+                customModal.addEventListener('click', function(e) {
+                    if (e.target === customModal) {
+                        hideModal();
+                    }
+                });
+            }
+            
+            // Update location map
+            function updateLocationMap() {
+                if (navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition(function(position) {
+                        const lat = position.coords.latitude;
+                        const lng = position.coords.longitude;
+                        currentLocation = { lat, lng };
+                        
+                        // Update Google Maps iframe
+                        const mapIframe = document.getElementById('googleMap');
+                        mapIframe.src = `https://www.google.com/maps/embed/v1/view?key=AIzaSyBFw0Qbyq9zTFTd-tUY6dZWTgaQzuU17R8&zoom=15&center=${lat},${lng}`;
+                    }, function() {
+                        // Use default location if permission denied
+                        const mapIframe = document.getElementById('googleMap');
+                        mapIframe.src = 'https://www.google.com/maps/embed/v1/view?key=AIzaSyBFw0Qbyq9zTFTd-tUY6dZWTgaQzuU17R8&zoom=15&center=27.1767,78.0081';
+                    });
+                }
+            }
+            
+            // Start location sharing
+            function startLocationSharing() {
+                if ("geolocation" in navigator) {
+                    showAlert('Live location sharing started!', 'success');
+                    document.getElementById('locationSwitch').checked = true;
+                    document.getElementById('locationShareSwitch').checked = true;
+                } else {
+                    showAlert('Geolocation is not supported by your browser', 'danger');
+                }
+            }
+            
+            // Stop location sharing
+            function stopLocationSharing() {
+                document.getElementById('locationSwitch').checked = false;
+                document.getElementById('locationShareSwitch').checked = false;
+                showAlert('Location sharing stopped', 'warning');
+            }
+            
+            // Show a specific screen
+            function showScreen(screenName) {
+                // Hide all screens
+                Object.values(screens).forEach(screen => {
+                    if (screen) {
+                        screen.classList.remove('active');
+                    }
+                });
+                
+                // Show the requested screen
+                if (screens[screenName]) {
+                    screens[screenName].classList.add('active');
+                }
+                
+                // Special handling for screens
+                if (screenName === 'profile') {
+                    updateProfileInfo();
+                } else if (screenName === 'location') {
+                    updateLocationMap();
+                }
+            }
+            
+            // Update user name in the UI
+            function updateUserName() {
+                document.getElementById('userName').textContent = currentUser.name;
+            }
+            
+            // Update profile info
+            function updateProfileInfo() {
+                document.getElementById('profileUserName').textContent = currentUser.name;
+                document.getElementById('profileUserEmail').textContent = currentUser.email;
+            }
+            
+            // Edit profile function
+            function editProfile() {
+                const newName = prompt('Enter your new name:', currentUser.name);
+                if (newName && newName.trim() !== '') {
+                    currentUser.name = newName.trim();
+                    localStorage.setItem('rakshakUser', JSON.stringify(currentUser));
+                    updateUserName();
+                    updateProfileInfo();
+                    showAlert('Profile updated successfully!', 'success');
+                }
+            }
+            
+            // Logout function
+            function logout() {
+                if (confirm('Are you sure you want to logout?')) {
+                    localStorage.removeItem('rakshakLoggedIn');
+                    stopLocationSharing();
+                    showScreen('login');
+                    showAlert('Logged out successfully', 'info');
+                }
+            }
+            
+            // Speak "EMERGENCY" 5 times with clear voice
+            function speakEmergency() {
+                if (!speechSynthesis.speaking) {
+                    isSpeaking = true;
+                    
+                    const emergencyUtterance = new SpeechSynthesisUtterance();
+                    emergencyUtterance.text = "EMERGENCY! EMERGENCY! EMERGENCY! EMERGENCY! EMERGENCY!";
+                    emergencyUtterance.volume = 1;
+                    emergencyUtterance.rate = 0.9;
+                    emergencyUtterance.pitch = 1.1;
+                    emergencyUtterance.lang = 'en-US';
+                    
+                    // Select a voice
+                    const voices = speechSynthesis.getVoices();
+                    const clearVoice = voices.find(voice => 
+                        voice.lang.includes('en') && 
+                        !voice.name.includes('Google UK') &&
+                        !voice.name.includes('Microsoft')
+                    );
+                    if (clearVoice) {
+                        emergencyUtterance.voice = clearVoice;
+                    }
+                    
+                    // Speak 3 times
+                    let count = 0;
+                    const maxCount = 3;
+                    
+                    function speakMessage() {
+                        if (count < maxCount) {
+                            speechSynthesis.speak(emergencyUtterance);
+                            count++;
+                            emergencyUtterance.onend = function() {
+                                setTimeout(speakMessage, 500);
+                            };
+                        } else {
+                            isSpeaking = false;
+                        }
+                    }
+                    
+                    speakMessage();
+                }
+            }
+            
+            // Show SOS options
+            function showSOSOptions() {
+                showScreen('sos');
+                document.querySelector('.nav-item[data-screen="sos"]').classList.add('active');
+                
+                // Play alarm sound
+                playSOSAlarm();
+                
+                // Speak "EMERGENCY" 5 times
+                speakEmergency();
+                
+                // Get current location
+                if ("geolocation" in navigator) {
+                    navigator.geolocation.getCurrentPosition(
+                        function(position) {
+                            currentLocation = {
+                                lat: position.coords.latitude,
+                                lng: position.coords.longitude
+                            };
+                        },
+                        function(error) {
+                            console.log('Location not available');
+                        },
+                        { enableHighAccuracy: true, timeout: 5000 }
+                    );
+                }
+                
+                // Vibrate phone (if supported)
+                if (navigator.vibrate) {
+                    navigator.vibrate([200, 100, 200, 100, 200, 100, 500]);
+                }
+            }
+            
+            // Play SOS alarm sound
+            function playSOSAlarm() {
+                try {
+                    // Create audio context for alarm
+                    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                    const oscillator = audioContext.createOscillator();
+                    const gainNode = audioContext.createGain();
+                    
+                    oscillator.connect(gainNode);
+                    gainNode.connect(audioContext.destination);
+                    
+                    // SOS pattern in Morse code
+                    const sosPattern = [
+                        { freq: 1200, time: 0.1 },
+                        { freq: 1200, time: 0.1 },
+                        { freq: 1200, time: 0.1 },
+                        { freq: 800, time: 0.3 },
+                        { freq: 800, time: 0.3 },
+                        { freq: 800, time: 0.3 },
+                        { freq: 1200, time: 0.1 },
+                        { freq: 1200, time: 0.1 },
+                        { freq: 1200, time: 0.1 }
+                    ];
+                    
+                    let currentTime = audioContext.currentTime;
+                    
+                    sosPattern.forEach(tone => {
+                        oscillator.frequency.setValueAtTime(tone.freq, currentTime);
+                        currentTime += tone.time;
+                        oscillator.frequency.setValueAtTime(800, currentTime);
+                        currentTime += 0.1;
+                    });
+                    
+                    gainNode.gain.setValueAtTime(0.5, audioContext.currentTime);
+                    
+                    oscillator.start();
+                    
+                    // Stop after the pattern completes
+                    setTimeout(() => {
+                        oscillator.stop();
+                    }, 3000);
+                } catch (e) {
+                    console.log('Audio not supported, using voice only');
+                }
+            }
+            
+            // Send SMS alerts
+            function sendSMSAlerts() {
+                let locationText = '';
+                if (currentLocation) {
+                    locationText = `Location: https://maps.google.com/?q=${currentLocation.lat},${currentLocation.lng}`;
+                } else {
+                    locationText = 'Location: Not available';
+                }
+                
+                const message = `🚨 EMERGENCY SOS ALERT 🚨\n\n${currentUser.name} has activated SOS!\n\n${locationText}\n\nTime: ${new Date().toLocaleString()}\n\nSent via RAKSHAK`;
+                
+                // Send to each contact
+                emergencyContacts.forEach(contact => {
+                    const smsLink = `sms:${contact.number}?body=${encodeURIComponent(message)}`;
+                    window.open(smsLink, '_blank');
+                });
+                
+                // Also send to emergency services
+                const emergencyMessage = `EMERGENCY: ${currentUser.name} activated SOS. ${locationText}. Time: ${new Date().toLocaleString()}`;
+                const emergencySMS = `sms:112?body=${encodeURIComponent(emergencyMessage)}`;
+                
+                setTimeout(() => {
+                    window.open(emergencySMS, '_blank');
+                }, 500);
+                
+                showAlert('SMS alerts sent to all emergency contacts!', 'success');
+            }
+            
+            // Send WhatsApp alerts
+            function sendWhatsAppAlerts() {
+                let locationText = '';
+                if (currentLocation) {
+                    locationText = `Location: https://maps.google.com/?q=${currentLocation.lat},${currentLocation.lng}`;
+                } else {
+                    locationText = 'Location: Not available';
+                }
+                
+                const message = `🚨 EMERGENCY SOS ALERT 🚨\n\n${currentUser.name} has activated SOS!\n\n${locationText}\n\nTime: ${new Date().toLocaleString()}\n\nSent via RAKSHAK`;
+                
+                // Send to each contact
+                emergencyContacts.forEach(contact => {
+                    // Format number for WhatsApp (remove any non-digit characters and add country code)
+                    const formattedNumber = contact.number.replace(/\D/g, '');
+                    const whatsappLink = `https://wa.me/91${formattedNumber}?text=${encodeURIComponent(message)}`;
+                    window.open(whatsappLink, '_blank');
+                });
+                
+                showAlert('WhatsApp alerts sent to all emergency contacts!', 'success');
+            }
+            
+            // Render contacts in contacts screen
+            function renderContacts() {
+                const contactsList = document.getElementById('contactsList');
+                contactsList.innerHTML = '';
+                
+                if (emergencyContacts.length === 0) {
+                    contactsList.innerHTML = `
+                        <div class="text-center py-4">
+                            <i class="fas fa-address-book fa-3x text-muted mb-3"></i>
+                            <p class="text-muted">No emergency contacts added</p>
+                            <button class="btn btn-custom btn-sm" id="addFirstContact">
+                                <i class="fas fa-plus me-1"></i> Add First Contact
+                            </button>
+                        </div>
+                    `;
+                    
+                    document.getElementById('addFirstContact')?.addEventListener('click', addNewContact);
+                    return;
+                }
+                
+                emergencyContacts.forEach(contact => {
+                    const contactElement = document.createElement('div');
+                    contactElement.className = 'contact-item';
+                    contactElement.innerHTML = `
+                        <div class="contact-avatar">${contact.avatar}</div>
+                        <div class="contact-info flex-grow-1">
+                            <h5 class="mb-1">${contact.name}</h5>
+                            <p class="mb-0">${contact.relation} • ${contact.number}</p>
+                        </div>
+                        <button class="btn btn-outline-danger btn-sm delete-contact" data-id="${contact.id}">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    `;
+                    
+                    contactsList.appendChild(contactElement);
+                });
+                
+                // Add event listeners to delete buttons
+                document.querySelectorAll('.delete-contact').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        const id = parseInt(this.getAttribute('data-id'));
+                        deleteContact(id);
+                    });
+                });
+            }
+            
+            // Render contacts in location screen
+            function renderLocationContacts() {
+                const locationContacts = document.getElementById('locationContacts');
+                locationContacts.innerHTML = '';
+                
+                emergencyContacts.forEach(contact => {
+                    const contactElement = document.createElement('div');
+                    contactElement.className = 'contact-item';
+                    contactElement.innerHTML = `
+                        <div class="contact-avatar">${contact.avatar}</div>
+                        <div class="contact-info flex-grow-1">
+                            <h5 class="mb-1">${contact.name}</h5>
+                            <p class="mb-0">${contact.relation}</p>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input location-contact-check" type="checkbox" data-id="${contact.id}" checked>
+                        </div>
+                    `;
+                    
+                    locationContacts.appendChild(contactElement);
+                });
+            }
+            
+            // Add new contact
+            function addNewContact() {
+                const name = prompt("Enter contact name:");
+                if (!name || name.trim() === '') return;
+                
+                const relation = prompt("Enter relation (Friend, Family, etc.):", "Friend");
+                if (!relation) return;
+                
+                let number = prompt("Enter phone number (10 digits):");
+                if (!number) return;
+                
+                // Validate phone number
+                number = number.replace(/\D/g, '');
+                if (number.length !== 10) {
+                    showAlert('Please enter a valid 10-digit phone number', 'danger');
+                    return;
+                }
+                
+                // Check if number already exists
+                if (emergencyContacts.some(c => c.number === number)) {
+                    showAlert('Contact with this number already exists', 'warning');
+                    return;
+                }
+                
+                // Generate avatar from initials
+                const initials = name.split(' ').map(n => n[0]).join('').toUpperCase().substring(0, 2);
+                
+                const newContact = {
+                    id: Date.now(),
+                    name: name.trim(),
+                    relation: relation.trim(),
+                    number: number,
+                    avatar: initials || 'C'
+                };
+                
+                emergencyContacts.push(newContact);
+                saveContacts();
+                renderContacts();
+                renderLocationContacts();
+                
+                showAlert(`Contact ${name} added successfully`, 'success');
+            }
+            
+            // Delete contact
+            function deleteContact(id) {
+                if (confirm("Are you sure you want to delete this contact?")) {
+                    emergencyContacts = emergencyContacts.filter(contact => contact.id !== id);
+                    saveContacts();
+                    renderContacts();
+                    renderLocationContacts();
+                    showAlert('Contact deleted', 'info');
+                }
+            }
+            
+            // Show modal
+            function showModal(content) {
+                modalContent.innerHTML = content;
+                customModal.classList.remove('hidden');
+            }
+            
+            // Hide modal
+            function hideModal() {
+                customModal.classList.add('hidden');
+            }
+            
+            // Show app information
+            function showAppInfo() {
+                const appInfo = `
+                    <div class="text-center">
+                        <div class="mb-4">
+                            <div class="app-logo" style="width: 100px; height: 100px; margin: 0 auto 20px; display: flex; justify-content: center; align-items: center;">
+                                <img src="WhatsApp Image 2025-12-25 at 9,02,41 PM (1)-Picsart-AiImageEnhancer.png" alt="RAKSHAK Logo" style="width: 100%; height: 100%; object-fit: cover; border-radius: 20px;">
+                            </div>
+                            <h4>RAKSHAK</h4>
+                            <p class="mb-1">Version 1.0</p>
+                            <p class="small text-muted">© 2024 RAKSHAK</p>
+                        </div>
+                        
+                        <div class="card-custom p-3 mb-3">
+                            <h6>App Features</h6>
+                            <ul class="small text-start">
+                                <li>Real-time GPS Location</li>
+                                <li>Emergency SOS with Voice Alert</li>
+                                <li>Live Location Sharing</li>
+                                <li>One-click Gemini AI Assistant</li>
+                                <li>Emergency Contacts</li>
+                                <li>Shake-to-Alert Feature</li>
+                                <li>Direct Emergency Calls</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="card-custom p-3">
+                            <h6>Emergency Services Integration</h6>
+                            <p class="small mb-1"><strong>Police:</strong> Direct call to 112/100</p>
+                            <p class="small mb-1"><strong>Ambulance:</strong> Direct call to 108/102</p>
+                            <p class="small mb-1"><strong>Fire Brigade:</strong> Direct call to 101</p>
+                            <p class="small mb-0"><strong>Gemini AI:</strong> Direct link to Google's AI</p>
+                        </div>
+                        <button class="btn btn-custom w-100 mt-3" onclick="hideModal()">Close</button>
+                    </div>
+                `;
+                
+                showModal(appInfo);
+            }
+            
+            // Show safety tips
+            function showSafetyTips() {
+                const safetyTips = `
+                    <div>
+                        <h5 class="mb-3 text-primary">Safety Guidelines</h5>
+                        
+                        <div class="mb-3">
+                            <h6>🚶 Walking Safety:</h6>
+                            <ul class="small">
+                                <li>Stay alert - avoid phone distractions</li>
+                                <li>Walk confidently with purpose</li>
+                                <li>Use well-lit, populated routes</li>
+                                <li>Vary your routine regularly</li>
+                                <li>Trust your instincts - if uncomfortable</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <h6>🚗 Travel Safety:</h6>
+                            <ul class="small">
+                                <li>Share trip details with trusted contacts</li>
+                                <li>Check vehicle details before entering</li>
+                                <li>Sit behind driver in taxis</li>
+                                <li>Keep doors locked while moving</li>
+                                <li>Have numbers on speed dial</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <h6>🏠 Home Safety:</h6>
+                            <ul class="small">
+                                <li>Keep doors/windows secured</li>
+                                <li>Don't open door to strangers</li>
+                                <li>Have emergency exits planned</li>
+                                <li>Install safety devices</li>
+                                <li>Keep phone charged</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="alert alert-warning small">
+                            <i class="fas fa-exclamation-triangle me-2"></i>
+                            <strong>Emergency Numbers (India):</strong> Police: 112/100 | Ambulance: 108/102 | Women Helpline: 1091/181 | Fire: 101
+                        </div>
+                        <button class="btn btn-custom w-100 mt-3" onclick="hideModal()">Close</button>
+                    </div>
+                `;
+                
+                showModal(safetyTips);
+            }
+            
+            // Share app function
+            function shareApp() {
+                const shareText = "Download RAKSHAK - Your personal safety app with real-time location sharing, emergency SOS, direct Gemini AI integration, and instant alerts. Stay safe!";
+                const shareUrl = window.location.href;
+                
+                if (navigator.share) {
+                    navigator.share({
+                        title: 'RAKSHAK',
+                        text: shareText,
+                        url: shareUrl
+                    }).then(() => {
+                        console.log('App shared successfully');
+                    }).catch(err => {
+                        console.log('Error sharing:', err);
+                        fallbackShare(shareText, shareUrl);
+                    });
+                } else {
+                    fallbackShare(shareText, shareUrl);
+                }
+            }
+            
+            // Fallback share method
+            function fallbackShare(text, url) {
+                const shareData = `${text}\n\n${url}`;
+                navigator.clipboard.writeText(shareData).then(() => {
+                    showAlert('Share link copied to clipboard!', 'success');
+                }).catch(err => {
+                    prompt("Copy this link to share:", url);
+                    showAlert("Share link ready to copy", "info");
+                });
+            }
+            
+            // Show alert
+            function showAlert(message, type) {
+                // Remove any existing alerts first
+                document.querySelectorAll('.custom-alert').forEach(alert => alert.remove());
+                
+                // Create alert element
+                const alert = document.createElement('div');
+                alert.className = `custom-alert alert alert-${type} alert-dismissible fade show position-fixed`;
+                alert.style.cssText = 'top: 70px; right: 15px; left: 15px; z-index: 9999; box-shadow: 0 4px 12px rgba(0,0,0,0.15);';
+                alert.innerHTML = `
+                    ${message}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                `;
+                
+                document.body.appendChild(alert);
+                
+                // Auto remove after 5 seconds
+                setTimeout(() => {
+                    if (alert.parentNode) {
+                        alert.remove();
+                    }
+                }, 5000);
+            }
+            
+            // Initialize the app
+            initApp();
+            
+            // Make hideModal globally accessible
+            window.hideModal = hideModal;
+            
+            // Initialize speech synthesis voices
+            setTimeout(() => {
+                speechSynthesis.getVoices();
+            }, 1000);
+        });
+    </script>
+</body>
+</html>
